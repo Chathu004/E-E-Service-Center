@@ -4,6 +4,7 @@ package controller;
 import bo.BoFactory;
 import bo.custom.CustomerBo;
 import dao.util.BoType;
+import db.DBConnection;
 import dto.CustomerDto;
 import dto.tm.CustomerTm;
 import javafx.collections.FXCollections;
@@ -16,6 +17,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -24,6 +29,8 @@ import java.util.List;
 
 
 public class CustomersFormController {
+    @FXML
+    private Button reportBtnOnAction;
     @FXML
     private AnchorPane pane;
 
@@ -186,5 +193,16 @@ public class CustomersFormController {
     }
 
 
-
+    public void reportBtnOnAction(ActionEvent event) {
+        try {
+            JasperDesign design = JRXmlLoader.load("src/main/resources/reports/customers_reports.jrxml");
+            //
+            //
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DBConnection.getInstance().getConnection());
+            JasperViewer.viewReport(jasperPrint,false);
+        } catch (JRException | ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
