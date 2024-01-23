@@ -222,6 +222,17 @@ public class ItemFormController {
 
     @FXML
     void saveButtonOnAction(ActionEvent event) {
+        String itemCode = txtCode.getText().trim();
+        String itemName = txtProduct.getText().trim();
+        String itemCategory = cmbCategory.getValue();
+        String itemStatus = cmbStatus.getValue();
+        String itemContact = txtContact.getText().trim();
+
+        if (itemCode.isEmpty() || itemName.isEmpty() || itemCategory == null || itemStatus == null || itemContact.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Please fill in all the fields.").show();
+            return;
+        }
+
         ItemDto dto = new ItemDto(txtCode.getText(),
                 txtProduct.getText(),
                 cmbCategory.getValue(),
