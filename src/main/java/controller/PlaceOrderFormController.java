@@ -102,7 +102,6 @@ public class PlaceOrderFormController {
         colFault.setCellValueFactory(new TreeItemPropertyValueFactory<>("fault"));
         colPrice.setCellValueFactory(new TreeItemPropertyValueFactory<>("price"));
         colOption.setCellValueFactory(new TreeItemPropertyValueFactory<>("btn"));
-//        colQty.setCellValueFactory(new TreeItemPropertyValueFactory<>("qty"));
 
         try {
             customers = customerBo.allCustomers();
@@ -132,7 +131,6 @@ public class PlaceOrderFormController {
             for (ItemDto dto:items) {
                 if (dto.getCode().equals(newValue.toString())){
                     txtProduct.setText(dto.getName());
-//                    txtUnitPrice.setText(String.format("%.2f",dto.getUnitPrice()));
                 }
             }
         });
