@@ -171,6 +171,17 @@ public class CustomersFormController {
     }
 
     public void saveBtnOnAction(javafx.event.ActionEvent actionEvent) {
+        String customerId = txtID.getText().trim();
+        String customerName = txtName.getText().trim();
+        String customerContact = txtContact.getText().trim();
+        String customerEmail = txtEmail.getText().trim();
+
+        if (customerId.isEmpty() || customerName.isEmpty() || customerContact.isEmpty() || customerEmail.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Please fill in all the fields.").show();
+            return;
+        }
+
+
         CustomerDto dto = new CustomerDto(txtID.getText(),
                 txtName.getText(),
                 txtContact.getText(),
