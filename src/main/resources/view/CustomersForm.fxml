@@ -61,5 +61,6 @@
             <TableColumn fx:id="colOption" prefWidth="85.0" text="Option" />
          </columns>
       </TableView>
+      <Button layoutX="590.0" layoutY="426.0" mnemonicParsing="false" onAction="#reportBtnOnAction" text="Report" />
    </children>
 </AnchorPane>
