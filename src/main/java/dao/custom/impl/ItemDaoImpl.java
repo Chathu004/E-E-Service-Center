@@ -58,7 +58,8 @@ public class ItemDaoImpl implements ItemDao {
                     item.getCode(),
                     item.getName(),
                     item.getCategory(),
-                    item.getStatus()
+                    item.getStatus(),
+                    item.getContact()
             ));
         }
         session.close();
@@ -81,7 +82,8 @@ public class ItemDaoImpl implements ItemDao {
                     item.getCode(),
                     item.getName(),
                     item.getCategory(),
-                    item.getStatus()
+                    item.getStatus(),
+                    item.getContact()
             );
         }
         return null;

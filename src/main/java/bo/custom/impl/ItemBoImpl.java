@@ -19,7 +19,8 @@ public class ItemBoImpl implements ItemBo {
                 dto.getCode(),
                 dto.getName(),
                 dto.getCategory(),
-                dto.getStatus()
+                dto.getStatus(),
+                dto.getContact()
 
         ));    }
 
@@ -29,7 +30,8 @@ public class ItemBoImpl implements ItemBo {
                 dto.getCode(),
                 dto.getName(),
                 dto.getCategory(),
-                dto.getStatus()
+                dto.getStatus(),
+                dto.getContact()
         ));    }
 
     @Override

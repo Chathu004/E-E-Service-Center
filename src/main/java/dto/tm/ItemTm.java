@@ -17,4 +17,5 @@ public class ItemTm extends RecursiveTreeObject<ItemTm> {
     private String category;
     private String status;
     private JFXButton btn;
+    private String contact;
 }
