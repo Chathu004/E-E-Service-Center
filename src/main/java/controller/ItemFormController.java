@@ -7,6 +7,7 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import dao.custom.ItemDao;
 import dao.custom.impl.ItemDaoImpl;
 import dao.util.BoType;
+import db.DBConnection;
 import dto.ItemDto;
 import dto.tm.ItemTm;
 import javafx.beans.value.ChangeListener;
@@ -23,6 +24,10 @@ import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -43,6 +48,8 @@ public class ItemFormController {
 
     @FXML
     private JFXTextField txtSearch;
+    @FXML
+    private JFXTextField txtContact;
 
     @FXML
     private JFXTreeTableView<ItemTm> tblItem;
@@ -66,6 +73,8 @@ public class ItemFormController {
 
     @FXML
     private JFXComboBox<String> cmbStatus;
+    @FXML
+    private TreeTableColumn<?, ?> colContact;
     private ItemDao itemDao = new ItemDaoImpl();
     private ItemBo itemBo = BoFactory.getInstance().getBo(BoType.ITEM);
     private static int itemCounter = 0;
@@ -76,6 +85,7 @@ public class ItemFormController {
         colCategory.setCellValueFactory(new TreeItemPropertyValueFactory<>("category"));
         colStatus.setCellValueFactory(new TreeItemPropertyValueFactory<>("status"));
         colOption.setCellValueFactory(new TreeItemPropertyValueFactory<>("btn"));
+        colContact.setCellValueFactory(new TreeItemPropertyValueFactory<>("contact"));
         loadItems();
 
         tblItem.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -125,6 +135,11 @@ public class ItemFormController {
             txtProduct.setText(newValue.getValue().getName());
             cmbCategory.setValue(newValue.getValue().getCategory());
             cmbStatus.setValue(newValue.getValue().getStatus());
+            txtContact.setText(newValue.getValue().getContact());
+
+
+
+
 
 
         } else {
@@ -137,6 +152,7 @@ public class ItemFormController {
         txtProduct.clear();
         cmbCategory.getSelectionModel().clearSelection();
         cmbStatus.getSelectionModel().clearSelection();
+        txtContact.clear();
 
     }
     private void loadItems() {
@@ -153,8 +169,8 @@ public class ItemFormController {
                         dto.getName(),
                         dto.getCategory(),
                         dto.getStatus(),
-
-                        btn
+                        btn,
+                        dto.getContact()
                 );
 
                 btn.setOnAction(actionEvent -> {
@@ -209,7 +225,8 @@ public class ItemFormController {
         ItemDto dto = new ItemDto(txtCode.getText(),
                 txtProduct.getText(),
                 cmbCategory.getValue(),
-                cmbStatus.getValue()
+                cmbStatus.getValue(),
+                txtContact.getText()
 
         );
 
@@ -240,7 +257,8 @@ public class ItemFormController {
         ItemDto dto = new ItemDto(txtCode.getText(),
                 txtProduct.getText(),
                 cmbCategory.getValue(),
-                cmbStatus.getValue()
+                cmbStatus.getValue(),
+                txtContact.getText()
         );
 
         try {
@@ -257,4 +275,17 @@ public class ItemFormController {
     }
 
 
+    public void reportBtnOnAction(ActionEvent event) {
+        try {
+            JasperDesign design = JRXmlLoader.load("src/main/resources/reports/item_reports.jrxml");
+            //
+            //
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DBConnection.getInstance().getConnection());
+            JasperViewer.viewReport(jasperPrint,false);
+        } catch (JRException | ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }
