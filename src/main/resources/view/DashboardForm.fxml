@@ -34,7 +34,7 @@
             </ImageView>
          </graphic>
       </Label>
-      <JFXButton layoutX="420.0" layoutY="116.0" onAction="#signInButtonOnAction" style="-fx-background-color: BLUE;" text="SIGN IN" textFill="WHITE">
+      <JFXButton layoutX="420.0" layoutY="116.0" style="-fx-background-color: BLUE;" text="SIGN IN" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

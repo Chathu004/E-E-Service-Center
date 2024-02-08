@@ -42,8 +42,8 @@ public class VerificationFormController {
     public void verifyBtnOnAction(ActionEvent actionEvent) {
         Stage stage = (Stage) pane.getScene().getWindow();
         try {
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/DashboardForm.fxml"))));
-            stage.setTitle(" Dashboard ");
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/ForgetPassword.fxml"))));
+            stage.setTitle(" Forget Password Form ");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
